@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import usePokemons, { type PokemonWithDetails } from './usePokemons';
-import defaultClass from './pokemonList.module.css';
-import { useDebounce } from 'use-debounce';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useDebounce } from 'use-debounce';
+import defaultClass from './pokemonList.module.css';
+import usePokemons, { type PokemonWithDetails } from './usePokemons';
 
 export default function PokemonList() {
   const [limit, setLimit] = useState(20);
@@ -13,7 +14,7 @@ export default function PokemonList() {
 
   useEffect(() => {
     search(debouncedFilter);
-  }, [debouncedFilter]);
+  }, [debouncedFilter, search]);
 
   if (isLoading) {
     return <div>Chargement...</div>;
@@ -38,20 +39,27 @@ export default function PokemonList() {
       {
         pokemons?.map((pokemon: PokemonWithDetails) => {
           return (
-            <button
+            <Card sx={{ minWidth: 275 }}
               onClick={() => { navigate(`/pokemon/${pokemon.id}`) }}
               key={pokemon.name}
               className={defaultClass.card}
               aria-label={pokemon.name}
             >
-              <h3>{pokemon.name}</h3>
-              {
-                pokemon.image && <img src={pokemon.image} alt={pokemon.name} />
-              }
+              <CardContent>
+                <Typography gutterBottom variant="h3" >
+                  {pokemon.name}
+                </Typography>
+                <CardMedia sx={{ height: 140 }} image={`${pokemon.image}`} title="green iguana" />
 
-              <p>{pokemon.id}</p>
-              <p>{pokemon.types.join(', ')}</p>
-            </button>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                  {pokemon.id}
+                </  Typography>
+                <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+                  {pokemon.types.join(', ')}
+                </Typography>
+
+              </CardContent>
+            </Card>
           );
         })
       }
