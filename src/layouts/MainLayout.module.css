@@ -1,0 +1,36 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  flex-shrink: 0;
+  padding: 50px 100px;
+}
+
+.title {
+  font-size: 3rem;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+}
+
+.container {
+  flex: 1 0 auto;
+  max-width: 90%;
+  margin: auto;
+  width: 1000px;
+  padding: 30px 0px;
+}
+
+.footer {
+  background-color: var(--color-secondary);
+  color: var(--color-reverse);
+  flex-shrink: 0;
+  padding: 20px 100px;
+  font-family: 'Helvetica'
+}
