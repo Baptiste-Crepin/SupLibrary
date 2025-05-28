@@ -37,6 +37,15 @@
       ],
       "@hooks/*": [
         "hooks/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "utils": [
+        "utils.ts"
+      ],
+      "appConstants": [
+        "appConstants.ts"
       ]
     },
   },
