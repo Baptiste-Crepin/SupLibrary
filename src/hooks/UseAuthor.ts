@@ -1,31 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
 import { baseUrl } from "appConstants";
+import type { key } from "Types";
 
 export type Author = {
   key: string;
-  displayname: string;
-  description?: {
+  name: string;
+  bio: {
     type: string;
     value: string;
+  } | string;
+  type: key;
+  photos: number[];
+  source_records: string[];
+  personal_name: string;
+  remote_ids: {
+    [key: string]: string;
   };
-  permission: {
-    key: string;
-  };
-  type: {
-    key: string;
-  };
-  m: string;
+  birth_date: string;
+  death_date: string;
+  alternate_names: string[];
   latest_revision: number;
   revision: number;
   created: {
     type: string;
     value: string; // date
   };
-  updated: {
+  last_modified: {
     type: string;
     value: string; // date
   };
-};
+
+}
 
 export function useAuthor(authorKey: string) {
   return useQuery<Author, Error>({
@@ -36,5 +41,7 @@ export function useAuthor(authorKey: string) {
       return res.json();
     },
     enabled: !!authorKey,
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    staleTime: 1000 * 60 * 60 * 24 * 7,
   });
 }

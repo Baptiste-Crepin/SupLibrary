@@ -15,6 +15,7 @@ export default defineConfig({
       '@services': resolve(__dirname, './src/services'),
       '@components': resolve(__dirname, './src/components'),
       '@hooks': resolve(__dirname, './src/hooks'),
+      '@pages': resolve(__dirname, './src/pages'),
       'utils': resolve(__dirname, './src/utils.ts'),
       'appConstants': resolve(__dirname, './src/appConstants.ts'),
     },
