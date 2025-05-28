@@ -5,7 +5,10 @@ import type { key } from "Types";
 export type Work = {
   key: string;
   title: string;
-  description?: string;
+  description?: {
+    type: string;
+    value: string
+  } | string;
   first_publish_date?: number;
   authors?: Array<{ author: key, type: key }>;
   type: key;

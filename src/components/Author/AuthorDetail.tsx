@@ -4,7 +4,7 @@ import {
   useNotifications,
 } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
-import { formatDate } from "utils";
+import { formatDate, getLifeSpan } from "utils";
 
 export default function AuthorDetail({ authorKey }: { authorKey: string }) {
   const notifications = useNotifications();
@@ -25,21 +25,6 @@ export default function AuthorDetail({ authorKey }: { authorKey: string }) {
     navigate('/', { replace: true });
     return null;
   }
-
-  // Helper function to get life span
-  const getLifeSpan = () => {
-    const birth = formatDate(data?.birth_date);
-    const death = formatDate(data?.death_date);
-
-    if (birth && death) {
-      return `${birth} - ${death}`;
-    } else if (birth) {
-      return `Born ${birth}`;
-    } else if (death) {
-      return `Died ${death}`;
-    }
-    return null;
-  };
 
   return (
     <Card>
@@ -84,7 +69,7 @@ export default function AuthorDetail({ authorKey }: { authorKey: string }) {
         </Typography>
 
         {/* Life Span */}
-        {getLifeSpan() && (
+        {getLifeSpan(data?.birth_date, data?.death_date) && (
           <Typography
             variant="h6"
             color="text.secondary"
@@ -94,7 +79,7 @@ export default function AuthorDetail({ authorKey }: { authorKey: string }) {
               fontSize: { xs: '1rem', sm: '1.25rem' }
             }}
           >
-            {getLifeSpan()}
+            {getLifeSpan(data?.birth_date, data?.death_date)}
           </Typography>
         )}
 

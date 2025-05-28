@@ -1,4 +1,4 @@
-import BookSearch from '@components/Book/BookSearch';
+import Search from '@components/Search/Search';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { Outlet, useNavigate } from 'react-router';
@@ -27,16 +27,7 @@ function MainLayout() {
           >
             SupLibrary
           </Typography>
-          <BookSearch />
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search> */}
+          <Search />
         </Toolbar>
       </AppBar>
       <Outlet />

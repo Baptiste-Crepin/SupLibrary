@@ -68,24 +68,23 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
               mb: 1
             }}
           >
-            {data?.title}
+            {data?.title} {data?.first_publish_date && (data?.first_publish_date)}
           </Typography>
 
           {/* Authors */}
           {data?.authors && data?.authors?.length > 0 && (
-            <Box sx={{ mb: 2 }}>
-              {data.authors.map((author, index) => (
-                <Typography
-                  key={author.author.key}
-                  variant="subtitle1"
-                  color="text.secondary"
-                  sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
-                >
-                  {index === 0 ? 'By ' : ', '}
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}
+            >
+              By {data?.authors?.map((author, index) => (
+                <span key={author.author.key}>
+                  {index > 0 && ', '}
                   <AuthorName authorKey={author.author.key} />
-                </Typography>
+                </span>
               ))}
-            </Box>
+            </Typography>
           )}
 
           {/* Publication Date */}
@@ -109,7 +108,7 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
                 fontSize: { xs: '0.95rem', sm: '1rem' }
               }}
             >
-              {data.description}
+              {typeof data.description === 'string' ? data.description : data.description.value}
             </Typography>
           )}
 
