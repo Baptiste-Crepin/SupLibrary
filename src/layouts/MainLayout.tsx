@@ -23,7 +23,8 @@ function MainLayout() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, cursor: 'pointer' }}
+            onClick={() => navigate('/')}
           >
             SupLibrary
           </Typography>

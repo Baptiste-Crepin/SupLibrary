@@ -14,7 +14,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AppProvider>
           <ReactQueryDevtools />
-          <BrowserRouter>
+          <BrowserRouter basename="/SupLibrary">
             <Router />
           </BrowserRouter>
         </AppProvider>
