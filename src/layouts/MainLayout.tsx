@@ -1,9 +1,11 @@
 import BookSearch from '@components/Book/BookSearch';
-import MenuIcon from '@mui/icons-material/Menu';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
 function MainLayout() {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky" sx={{ marginBottom: 2 }}>
@@ -15,7 +17,7 @@ function MainLayout() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <LocalLibraryIcon onClick={() => navigate('/')} />
           </IconButton>
           <Typography
             variant="h6"

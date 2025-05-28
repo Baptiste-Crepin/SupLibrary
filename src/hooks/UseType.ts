@@ -36,5 +36,7 @@ export function useType(typeKey: string) {
       return res.json();
     },
     enabled: !!typeKey,
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    staleTime: 1000 * 60 * 60 * 24 * 7,
   });
 }

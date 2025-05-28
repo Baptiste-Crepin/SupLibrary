@@ -42,5 +42,7 @@ export function useBook(bookKey: string) {
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    staleTime: 1000 * 60 * 60 * 24 * 7,
   });
 }

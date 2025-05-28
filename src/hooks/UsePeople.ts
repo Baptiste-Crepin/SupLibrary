@@ -33,5 +33,7 @@ export function usePeople(peopleKey: string) {
       return res.json();
     },
     enabled: !!peopleKey,
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    staleTime: 1000 * 60 * 60 * 24 * 7,
   });
 }

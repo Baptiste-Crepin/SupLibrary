@@ -1,6 +1,7 @@
 import { useSearch } from "@hooks/UseSearch";
 import { Skeleton } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router";
 import { useDebounce } from 'use-debounce';
 
 export default function BookSearch() {
@@ -24,7 +25,8 @@ export default function BookSearch() {
           data?.docs?.map((document) => (
 
             <div key={document.key} style={{ marginBottom: 10 }}>
-              <a href={`${document.key}`}>{document.title}</a>
+              {/* <Link href={`${document.key}`}>{document.title}</Link> */}
+              <Link to={`${document.key}`}>{document.title}</Link>
             </div>
           ))
         )

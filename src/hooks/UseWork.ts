@@ -35,5 +35,7 @@ export function useWork(workKey: string) {
       return res.json();
     },
     enabled: !!workKey,
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    staleTime: 1000 * 60 * 60 * 24 * 7,
   });
 }
