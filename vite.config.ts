@@ -1,7 +1,7 @@
-import { defineConfig, type UserConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { fileURLToPath } from 'url'
 import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
+import { defineConfig, type UserConfig } from 'vite'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -13,8 +13,12 @@ export default defineConfig({
     alias: {
       '@layouts': resolve(__dirname, './src/layouts'),
       '@services': resolve(__dirname, './src/services'),
-      '@components': resolve(__dirname, './src/components')
-    }
+      '@components': resolve(__dirname, './src/components'),
+      '@hooks': resolve(__dirname, './src/hooks'),
+      'utils': resolve(__dirname, './src/utils.ts'),
+      'appConstants': resolve(__dirname, './src/appConstants.ts'),
+    },
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   test: {
     environment: 'jsdom',

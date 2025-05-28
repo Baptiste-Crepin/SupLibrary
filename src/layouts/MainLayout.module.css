@@ -8,7 +8,18 @@
   background-color: var(--color-primary);
   color: var(--color-accent);
   flex-shrink: 0;
-  padding: 50px 100px;
+  padding: 25px 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  flex-shrink: 0;
+  padding: 25px 100px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .title {
