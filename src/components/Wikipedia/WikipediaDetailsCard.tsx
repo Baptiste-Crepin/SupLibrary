@@ -1,5 +1,5 @@
 import { useWikipedia } from "@hooks/UseWikipedia";
-import { Card, CardContent, Skeleton, Typography } from "@mui/material";
+import { Card, CardContent, CardHeader, Skeleton, Typography } from "@mui/material";
 import { Link } from "react-router";
 
 export default function WikipediaDetailsCard({ wikipediaUrl }: { wikipediaUrl: string }) {
@@ -16,11 +16,8 @@ export default function WikipediaDetailsCard({ wikipediaUrl }: { wikipediaUrl: s
 
   return (
     <Card>
+      <CardHeader title="Wikipedia Details" />
       <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Wikipedia Details
-        </Typography>
-
         <Typography variant="body1" gutterBottom>
           {data?.title}
         </Typography>

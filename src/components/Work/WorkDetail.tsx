@@ -1,4 +1,4 @@
-import AuthorDetail from "@components/Author/AuthorDetail";
+import AuthorDetailCard from "@components/Author/AuthorDetailCard";
 import AuthorName from "@components/Author/AuthorName";
 import WikipediaDetailsCard from "@components/Wikipedia/WikipediaDetailsCard";
 import RatingCard from "@components/Work/RatingCard";
@@ -275,14 +275,7 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
       {/* Author Details Card */}
       {
         data?.authors && data?.authors?.length > 0 && (
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Author Details
-              </Typography>
-              <AuthorDetail authorKey={data.authors[0].author.key} />
-            </CardContent>
-          </Card>
+          <AuthorDetailCard authorKey={data.authors[0].author.key} />
         )
       }
 
