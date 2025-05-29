@@ -1,10 +1,12 @@
 import AuthorDetail from "@components/Author/AuthorDetail";
 import AuthorName from "@components/Author/AuthorName";
 import WikipediaDetailsCard from "@components/Wikipedia/WikipediaDetailsCard";
+import RatingCard from "@components/Work/RatingCard";
 import { useWork } from "@hooks/UseWork";
 import { Box, Button, Card, CardContent, Chip, Divider, Skeleton, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { formatDate } from "utils";
+import BookshelfCard from "./BookshelfCard";
 
 
 export default function WorkDetail({ workKey }: { workKey: string }) {
@@ -33,9 +35,9 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
   }
 
   return (
-    <Stack spacing={4}>
+    <Stack spacing={4} sx={{ paddingY: { xs: 2, md: 4 }, paddingX: { xs: 2, md: 8 } }}>
       {/* Main Book Card */}
-      <Card>
+      <Card >
         <CardContent>
           {/* Cover Image - Mobile First */}
           {data?.covers?.[0] && (
@@ -233,29 +235,57 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
               </Typography>
             )}
           </Stack>
+
         </CardContent>
       </Card>
 
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2}
+        sx={{
+          width: '100%',
+          alignItems: { md: 'stretch' }
+        }}
+      >
+
+        {data &&
+          <Box sx={{ flex: 1 }}>
+            <RatingCard workKey={data?.key} />
+          </Box>
+        }
+        {data &&
+          <Box sx={{ flex: 1 }}>
+            <BookshelfCard workKey={data?.key} />
+          </Box>
+        }
+
+      </Stack>
+
       {/* Wikipedia Details */}
-      {data?.links && data?.links?.length > 0 && (
-        data.links
-          .filter(x => x.url.includes('wikipedia.org'))
-          .map((link) => (
-            <WikipediaDetailsCard key={link.title} wikipediaUrl={link.url} />
-          ))
-      )}
+      {
+        data?.links && data?.links?.length > 0 && (
+          data.links
+            .filter(x => x.url.includes('wikipedia.org'))
+            .map((link) => (
+              <WikipediaDetailsCard key={link.title} wikipediaUrl={link.url} />
+            ))
+        )
+      }
 
       {/* Author Details Card */}
-      {data?.authors && data?.authors?.length > 0 && (
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Author Details
-            </Typography>
-            <AuthorDetail authorKey={data.authors[0].author.key} />
-          </CardContent>
-        </Card>
-      )}
-    </Stack>
+      {
+        data?.authors && data?.authors?.length > 0 && (
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Author Details
+              </Typography>
+              <AuthorDetail authorKey={data.authors[0].author.key} />
+            </CardContent>
+          </Card>
+        )
+      }
+
+    </Stack >
   );
 }
