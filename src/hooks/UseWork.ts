@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { baseUrl } from "appConstants";
 import type { key } from "Types";
+import { fetchWithStatus, shouldRetryHttpError, type ApiError } from "utils";
 
 export type Work = {
   key: string;
@@ -17,6 +18,11 @@ export type Work = {
   subjects?: string[];
   subject_people?: string[];
   subject_times?: string[];
+  links?: Array<{
+    title: string,
+    url: string,
+    key: key
+  }>;
   latest_revision: number;
   revision: number;
   created: {
@@ -30,13 +36,17 @@ export type Work = {
 };
 
 export function useWork(workKey: string) {
-  return useQuery<Work, Error>({
+  return useQuery<Work, ApiError>({
     queryKey: ["work", workKey],
-    queryFn: async () => {
-      const res = await fetch(`${baseUrl}/works/${workKey}.json`);
-      if (!res.ok) throw new Error("Network response was not ok");
-      return res.json();
+    queryFn: async (): Promise<Work> => {
+      if (!workKey) {
+        throw { message: 'Work key is required', code: 'MISSING_KEY' } as ApiError;
+      }
+
+      const response = await fetchWithStatus<Work>(`${baseUrl}/works/${workKey}.json`);
+      return response.data;
     },
+    retry: shouldRetryHttpError,
     enabled: !!workKey,
     gcTime: 1000 * 60 * 60 * 24 * 7,
     staleTime: 1000 * 60 * 60 * 24 * 7,

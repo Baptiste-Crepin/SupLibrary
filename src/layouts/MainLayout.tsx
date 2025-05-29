@@ -8,14 +8,13 @@ function MainLayout() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="sticky" sx={{ marginBottom: 2 }}>
+      <AppBar position="sticky">
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
           >
             <LocalLibraryIcon onClick={() => navigate('/')} />
           </IconButton>
@@ -23,7 +22,12 @@ function MainLayout() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, cursor: 'pointer' }}
+            sx={{
+              minWidth: 'max-content',
+              flexShrink: 0,
+              display: { xs: 'none', md: 'block' }, // Hidden on xs/sm, visible from md up
+              cursor: 'pointer'
+            }}
             onClick={() => navigate('/')}
           >
             SupLibrary

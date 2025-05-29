@@ -1,36 +1,39 @@
 import AuthorDetail from "@components/Author/AuthorDetail";
 import AuthorName from "@components/Author/AuthorName";
+import WikipediaDetailsCard from "@components/Wikipedia/WikipediaDetailsCard";
 import { useWork } from "@hooks/UseWork";
-import { Box, Card, CardContent, Chip, Divider, Skeleton, Stack, Typography } from "@mui/material";
-import {
-  useNotifications,
-} from '@toolpad/core/useNotifications';
+import { Box, Button, Card, CardContent, Chip, Divider, Skeleton, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { formatDate } from "utils";
 
 
 export default function WorkDetail({ workKey }: { workKey: string }) {
-  const notifications = useNotifications();
   const navigate = useNavigate();
-  const { isLoading, data, isError } = useWork(workKey);
+  const { isLoading, data, isError, error } = useWork(workKey);
 
   if (isLoading) {
     return <Skeleton variant="rectangular" height={20} />;
   }
 
-  if (isError) {
-    console.log(isLoading, isError, data);
-    notifications.show('Error whilst loading work', {
-      severity: 'error',
-      autoHideDuration: 3000,
-    })
+  if (isError && error) {
+    return (
+      <div className="error">
 
-    navigate('/', { replace: true });
-    return null;
+        <Typography variant="h6" gutterBottom>
+          {error.status === 404
+            ? "This work might have been removed or doesn't exist."
+            : "An error occurred while loading the work."}
+        </Typography>
+
+        <Button variant="contained" color="primary" onClick={() => navigate('/')}>
+          Go back to the home page
+        </Button>
+      </div>
+    );
   }
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={4}>
       {/* Main Book Card */}
       <Card>
         <CardContent>
@@ -232,6 +235,15 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
           </Stack>
         </CardContent>
       </Card>
+
+      {/* Wikipedia Details */}
+      {data?.links && data?.links?.length > 0 && (
+        data.links
+          .filter(x => x.url.includes('wikipedia.org'))
+          .map((link) => (
+            <WikipediaDetailsCard key={link.title} wikipediaUrl={link.url} />
+          ))
+      )}
 
       {/* Author Details Card */}
       {data?.authors && data?.authors?.length > 0 && (

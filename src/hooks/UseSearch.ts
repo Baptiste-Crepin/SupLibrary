@@ -33,15 +33,15 @@ type Document = {
   id_project_gutenberg: string[];
 }
 
-export function useSearch(query: string) {
+export function useSearch(query: string, limit = 10) {
   return useQuery<Search, Error>({
-    queryKey: ["Search", query],
+    queryKey: ["Search", query, limit],
     queryFn: async () => {
       if (!query) return { isLoading: false, data: [] };
       if (query.length < 3) return { isLoading: false, data: [] };
       const formattedQuery = query.replace(" ", "+");
 
-      const res = await fetch(`${baseUrl}/search.json?q=${formattedQuery}`);
+      const res = await fetch(`${baseUrl}/search.json?q=${formattedQuery}&limit=${limit}`);
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
