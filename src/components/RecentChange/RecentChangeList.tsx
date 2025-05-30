@@ -44,14 +44,6 @@ export default function RecentChangeList() {
                         {item.comment}
                       </Typography>
 
-                      {/* {item.changes.filter((_, i) => i < 3).map((change, index) => {
-                        return (
-                          <div key={index}>
-                            <Change key={index} changeKey={change.key} />
-                          </div>
-                        );
-                      })} */}
-
                       <Typography >
                         <PeopleName peopleKey={item.author.key} />
                       </Typography>
