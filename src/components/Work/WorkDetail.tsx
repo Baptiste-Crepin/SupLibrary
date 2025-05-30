@@ -1,7 +1,7 @@
 import AuthorDetailCard from "@components/Author/AuthorDetailCard";
-import AuthorName from "@components/Author/AuthorName";
+import AuthorSummary from "@components/Author/AuthorSummary";
+import RatingCard from "@components/Rating/RatingCard";
 import WikipediaDetailsCard from "@components/Wikipedia/WikipediaDetailsCard";
-import RatingCard from "@components/Work/RatingCard";
 import { useWork } from "@hooks/UseWork";
 import { Box, Button, Card, CardContent, Chip, Divider, Skeleton, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
@@ -86,7 +86,7 @@ export default function WorkDetail({ workKey }: { workKey: string }) {
               By {data?.authors?.map((author, index) => (
                 <span key={author.author.key}>
                   {index > 0 && ', '}
-                  <AuthorName authorKey={author.author.key} />
+                  <AuthorSummary authorKey={author.author.key} />
                 </span>
               ))}
             </Typography>

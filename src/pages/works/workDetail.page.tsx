@@ -9,6 +9,6 @@ export default function WorkDetailPage() {
   }
 
   return (
-    <WorkDetail workKey={workKey} />
+    <WorkDetail workKey={`/works/${workKey}`} />
   )
 }

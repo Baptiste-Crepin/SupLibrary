@@ -1,8 +1,8 @@
 import { useRatings } from "@hooks/UseWork";
 import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Box, Button, Card, CardContent, CardHeader, LinearProgress, Skeleton, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
+import RatingSummary from "./RatingSummary";
 
 
 export default function RatingCard({ workKey }: { workKey: string }) {
@@ -35,24 +35,7 @@ export default function RatingCard({ workKey }: { workKey: string }) {
       <CardHeader title="Rating Details" />
       <CardContent>
         <Stack spacing={2}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 1 }}>
-            <Typography variant="body2" sx={{ ml: 1, color: 'text.secondary' }}>
-              {data?.summary?.average?.toFixed(1)}
-            </Typography>
-            {Array.from({ length: 5 }, (_, index) => {
-              const rating = data?.summary?.average || 0;
-              const starNumber = index + 1;
-
-              return starNumber <= Math.floor(rating) ? (
-                <StarIcon key={index} sx={{ fontSize: 24, color: 'orange' }} />
-              ) : (
-                <StarBorderIcon key={index} sx={{ fontSize: 24, color: 'orange' }} />
-              );
-            })}
-            <Typography variant="body2" sx={{ ml: 1, color: 'text.secondary' }}>
-              ({data?.summary?.count || 0} reviews)
-            </Typography>
-          </Box>
+          <RatingSummary workKey={workKey} />
 
           {[1, 2, 3, 4, 5].map(rating => {
             const count = data?.counts[rating];

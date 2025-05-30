@@ -85,7 +85,7 @@ export default function Search() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Rechercher un livre..."
+            placeholder="Search for books, authors, genres..."
             color='primary'
             slotProps={{
               input: {

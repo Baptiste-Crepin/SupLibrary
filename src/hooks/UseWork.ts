@@ -67,7 +67,7 @@ export function useWork(workKey: string) {
         throw { message: 'Work key is required', code: 'MISSING_KEY' } as ApiError;
       }
 
-      const response = await fetchWithStatus<Work>(`${baseUrl}/works/${workKey}.json`);
+      const response = await fetchWithStatus<Work>(`${baseUrl}${workKey}.json`);
       return response.data;
     },
     retry: shouldRetryHttpError,
