@@ -116,7 +116,6 @@ export default function SearchPage() {
           </Typography>
 
           {/* Search Bar */}
-
           <TextField
             sx={{
               width: '100%',
@@ -203,9 +202,7 @@ export default function SearchPage() {
                 </AccordionDetails>
               </Accordion>
 
-              {/* Common Subjects */}
-
-              {/* Language & Format */}
+              {/* Language */}
               <Accordion defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Language</Typography>
