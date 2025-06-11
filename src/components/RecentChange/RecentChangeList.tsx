@@ -10,7 +10,7 @@ export default function RecentChangeList() {
   const { isLoading, isError, data } = useRecentChanges(limit);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className="recent-changes">
       {
         isError ?
           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }} key={0}>
@@ -28,11 +28,11 @@ export default function RecentChangeList() {
             :
             (data?.map((item) => {
               return (
-                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }} key={item.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }} key={item.id} className="recent-change-item">
                   <Card
                     key={item.id}
                     aria-label={item.id}
-                    sx={{ minHeight: cardHeight }}
+                    sx={{ minHeight: cardHeight, height: '100%' }}
                   >
 
                     <CardContent>

@@ -151,7 +151,7 @@ export default function Search() {
                   ))}
                 </List>
               ) : (
-                <List dense disablePadding>
+                <List dense disablePadding className='search-results'>
                   {data?.docs?.map((document) => (
                     <ListItem key={document.key} disablePadding>
                       <ListItemButton
@@ -199,7 +199,7 @@ export default function Search() {
                                   color="text.secondary"
                                   display="block"
                                 >
-                                  {document.author_name.slice(0, 2).join(', ')}
+                                  {document.author_name}
                                 </Typography>
                               )}
                               {document.first_publish_year && (

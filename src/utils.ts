@@ -1,12 +1,7 @@
 import axios, { AxiosError, type AxiosResponse } from "axios";
 
-export const getCurrentDateParts = (date: Date) => {
-
-  return {
-    year: date.getFullYear(),
-    month: (date.getMonth() + 1).toString().padStart(2, '0'),
-    day: date.getDate().toString().padStart(2, '0'),
-  };
+export const isRangeObject = (value: unknown): value is { min?: number; max?: number } => {
+  return typeof value === 'object' && value != null && ('min' in value || 'max' in value);
 };
 
 export const formatDate = (dateString?: string) => {

@@ -39,7 +39,7 @@ export default function RatingCard({ workKey }: { workKey: string }) {
 
           {[1, 2, 3, 4, 5].map(rating => {
             const count = data?.counts[rating];
-            const percentage = data?.summary?.count ? (count ?? 0 / data.summary.count * 100) : 0;
+            const percentage = data?.summary?.count ? ((count ?? 0) / data.summary.count * 100) : 0;
 
             return (
               <Stack key={rating} direction="row" spacing={2} alignItems="center" sx={{ mb: 1 }}>

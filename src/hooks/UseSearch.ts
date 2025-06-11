@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { baseUrl } from "appConstants";
+import type { Range } from "Types";
 
 export type Search = {
   numFound: number;
@@ -41,7 +42,7 @@ export function useSearch(query: string, limit = 10, offset = 0) {
       if (query.length < 3) return { isLoading: false, data: [] };
       const formattedQuery = query.replace(" ", "+");
 
-      const res = await fetch(`${baseUrl}/search.json?q=${formattedQuery}&limit=${limit}&offset=${offset}`);
+      const res = await fetch(`${baseUrl}/search.json?title=${formattedQuery}&limit=${limit}&offset=${offset}`);
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
@@ -58,10 +59,19 @@ export type AdvancedSearchFilters = {
   person?: string;
   language?: string;
   publisher?: string;
-  publishYear?: [number, number];
-  firstPublishYear?: [number, number];
-  readinglogCount?: [number, number];
-  ratingsCount?: [number, number];
+  publishYear?: Range<number | null>
+  firstPublishYear?: {
+    min?: number;
+    max?: number;
+  }
+  readinglogCount?: {
+    min?: number;
+    max?: number;
+  }
+  ratingsCount?: {
+    min?: number;
+    max?: number;
+  }
   deweyDecimal?: string;
   libraryOfCongress?: string;
   birthDate?: string;
@@ -86,12 +96,24 @@ export function useAdvancedSearch(query: string, filters: AdvancedSearchFilters,
 
 const getFormatedQuery = (query: string, filters: AdvancedSearchFilters) => {
   let formattedQuery = query.replace(" ", "+");
-  formattedQuery += Object.entries(filters).map(([key, value]) => {
+
+  const stringFilters = Object.entries(filters)
+    .filter(([_, value]) => value != null && typeof value === 'string');
+
+  // const dateFilters = Object.entries(filters)
+  //   .filter(([_, value]) => value != null && typeof value !== 'string' && isRangeObject(value));
+  // formattedQuery += dateFilters
+  //   .map(([key, value]) => {
+  //     value = value as Range<number | null>;
+  //     if (value.min !== undefined || value.max !== undefined) {
+  //       return ` ${key}=[${value.min ?? '*'}+TO+${value.max ?? '*'}]`;
+  //     }
+  //   }).join(' ') + (stringFilters.length > 0 ? '&' : '');
+
+  formattedQuery += stringFilters.map(([key, value]) => {
     if (value === null || value === '') return '';
-    if (Array.isArray(value)) {
-      return `&${key}=${value.join('+')}`;
-    } else {
-      return `&${key}=${value}`;
+    if (typeof value === 'string') {
+      return `&${key}=${value.replace(" ", "+")}`;
     }
   }).join('');
   return formattedQuery;

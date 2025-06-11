@@ -28,6 +28,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDebounce } from 'use-debounce';
+import { isRangeObject } from 'utils';
 
 const defaultFilters: AdvancedSearchFilters = {
   title: '',
@@ -37,6 +38,7 @@ const defaultFilters: AdvancedSearchFilters = {
   person: '',
   language: '',
   ebookAccess: '',
+  // publishYear: { max: new Date().getFullYear() },
 };
 
 const languages = [
@@ -260,7 +262,13 @@ export default function SearchPage() {
                   {activeFilters.map(([key, value]) => (
                     <Chip
                       key={key}
-                      label={`${key}: ${value}`}
+                      label={
+                        typeof value === 'string' ?
+                          `${key}: ${value}` :
+                          isRangeObject(value) ?
+                            `${key}: ${value.min ?? '*'} TO ${value.max ?? '*'}` :
+                            `${key}: ${value}`
+                      }
                       size="small"
                       onDelete={() => handleDeleteChip(key as keyof AdvancedSearchFilters)}
                     />
@@ -272,7 +280,7 @@ export default function SearchPage() {
             {isError ? <Typography variant='h6'>Error fetching the requested data, try again later</Typography> : (
               <>
                 {/* Results Grid/List */}
-                < Grid container spacing={2}>
+                < Grid container spacing={2} className="search-results">
                   {/* Placeholder for search results */}
                   {isLoading && Array.from({ length: limit }, (_, i) => (
                     <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={i}>
@@ -281,7 +289,7 @@ export default function SearchPage() {
                   ))}
 
                   {!isLoading && data && data.docs?.map((item) => (
-                    <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={item.key}>
+                    <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={item.key} className="search-result-item">
                       <WorkDetailCard workKey={item.key} />
                     </Grid>
                   ))}
